@@ -1,0 +1,35 @@
+{
+  "profiles": {
+    "FastFoodProduction": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:55142;http://localhost:55143"
+    },
+    "Mock Lambda Test Tool": {
+      "commandName": "Executable",
+      "commandLineArgs": "--port 5050",
+      "workingDirectory": ".\\bin\\$(Configuration)\\net8.0",
+      "executablePath": "%USERPROFILE%\\.dotnet\\tools\\dotnet-lambda-test-tool-8.0.exe"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8081",
+        "ASPNETCORE_HTTP_PORTS": "8080",
+        "AWS_ACCESS_KEY_DYNAMO": "AKIA34WN2M3R7WNOZUPF",
+        "AWS_SECRET_KEY_DYNAMO": "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",
+        "AWS_TABLE_NAME_DYNAMO": "ProductionTable",
+        "AWS_SQS_LOG": "https://sqs.us-east-1.amazonaws.com/817549174499/LogQueue.fifo",
+        "AWS_SQS_GROUP_ID_LOG": "LogQueue.fifo",
+        "AWS_SQS_PRODUCTION": "https://sqs.us-east-1.amazonaws.com/817549174499/ProductionQueue.fifo"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
+  }
+}

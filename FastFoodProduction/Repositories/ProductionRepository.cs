@@ -26,4 +26,81 @@ public class ProductionRepository(IAmazonDynamoDB dynamoDb)
         var response = await dynamoDb.PutItemAsync(createItemRequest);
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
+
+    public async Task<Order> GetOrderByPk(string in_store_order_id)
+    {
+        var request = new ScanRequest
+        {
+            TableName = tableName,
+            FilterExpression = "pk = :pk",
+            ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":pk", new AttributeValue { S = in_store_order_id } }
+                }
+        };
+
+        var response = await dynamoDb.ScanAsync(request);
+
+        if (response.Items.Count == 0)
+            return null;
+
+        var itemAsDocument = Document.FromAttributeMap(response.Items.First());
+        return JsonSerializer.Deserialize<Order>(itemAsDocument.ToJson());
+    }
+
+    public async Task<List<Order>> GetPendingOrders()
+    {
+        var queryRequest = new ScanRequest
+        {
+            TableName = tableName,
+            FilterExpression = "order_status = :order_status",
+            ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+            {
+                { ":order_status", new AttributeValue { S = "Paid" } }
+            }
+        };
+
+        var response = await dynamoDb.ScanAsync(queryRequest);
+
+        var orders = response.Items.Select(item =>
+        {
+            var order = new Order
+            {
+                InStoreOrderId = item["in_store_order_id"].S,
+                ItensJson = item["itens_json"].S,
+                OrderStatus = item["order_status"].S,
+                ReceiptHandlerMessage = item["receipt_handler_message"].S
+            };
+            return order;
+        }).ToList();
+
+        return orders;
+    }
+
+    public async Task<bool> ChangeOrderToStatus(string in_store_order_id, string status)
+    {
+        var updateItemRequest = new UpdateItemRequest
+        {
+            TableName = tableName,
+            Key = new Dictionary<string, AttributeValue>
+            {
+                { "pk", new AttributeValue { S = in_store_order_id } },
+                { "sk", new AttributeValue { S = in_store_order_id } }
+            },
+            AttributeUpdates = new Dictionary<string, AttributeValueUpdate>
+            {
+                {
+                    "order_status", new AttributeValueUpdate
+                    {
+                        Action = AttributeAction.PUT,
+                        Value = new AttributeValue { S = status }
+                    }
+                }
+            }
+        };
+
+        var response = await dynamoDb.UpdateItemAsync(updateItemRequest);
+
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
 }
