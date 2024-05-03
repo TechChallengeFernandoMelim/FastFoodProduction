@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		README.md = README.md
+		.github\workflows\deploy.yaml = .github\workflows\deploy.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFoodProduction", "FastFoodProduction\FastFoodProduction.csproj", "{AAD70277-A9A7-475B-A499-A188F55CABFE}"
