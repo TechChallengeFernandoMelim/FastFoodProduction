@@ -53,6 +53,30 @@ public class SqsProductionTests
     }
 
     [Fact]
+    public async Task OrderQueue_InvalidInput_ReturnNull_Error()
+    {
+        // Arrange 
+        var sqsClientMock = new Mock<AmazonSQSClient>(_credentialsMock.Object, RegionEndpoint.USEast1);
+
+        sqsClientMock
+            .Setup(x => x.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ReceiveMessageResponse()
+            {
+                Messages = new List<Message>()
+                {
+                }
+            });
+
+        var sqsProduction = new SqsProduction(sqsClientMock.Object);
+
+        // Act
+        var order = await sqsProduction.GetNextOrder();
+
+        // Assert
+        Assert.Null(order);
+    }
+
+    [Fact]
     public async Task DeleteMessage_ValidInput_Success()
     {
         // Arrange
