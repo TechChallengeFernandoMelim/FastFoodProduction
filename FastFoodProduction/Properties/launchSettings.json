@@ -21,8 +21,8 @@
       "environmentVariables": {
         "ASPNETCORE_HTTPS_PORTS": "8081",
         "ASPNETCORE_HTTP_PORTS": "8080",
-        "AWS_ACCESS_KEY_DYNAMO": "AKIA34WN2M3R7WNOZUPF",
-        "AWS_SECRET_KEY_DYNAMO": "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",
+        "AWS_ACCESS_KEY_DYNAMO": "",
+        "AWS_SECRET_KEY_DYNAMO": "",
         "AWS_TABLE_NAME_DYNAMO": "ProductionTable",
         "AWS_SQS_LOG": "https://sqs.us-east-1.amazonaws.com/817549174499/LogQueue.fifo",
         "AWS_SQS_GROUP_ID_LOG": "LogQueue.fifo",
