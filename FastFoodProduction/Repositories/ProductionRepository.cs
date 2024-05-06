@@ -11,7 +11,7 @@ public class ProductionRepository(IAmazonDynamoDB dynamoDb)
 {
     private static string tableName = Environment.GetEnvironmentVariable("AWS_TABLE_NAME_DYNAMO");
 
-    public async Task<bool> CreateOrder(Order order)
+    public virtual async Task<bool> CreateOrder(Order order)
     {
         var orderAsJson = JsonSerializer.Serialize(order);
         var itemAsDocument = Document.FromJson(orderAsJson);
@@ -27,7 +27,7 @@ public class ProductionRepository(IAmazonDynamoDB dynamoDb)
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    public async Task<Order> GetOrderByPk(string in_store_order_id)
+    public virtual async Task<Order> GetOrderByPk(string in_store_order_id)
     {
         var request = new ScanRequest
         {
@@ -48,7 +48,7 @@ public class ProductionRepository(IAmazonDynamoDB dynamoDb)
         return JsonSerializer.Deserialize<Order>(itemAsDocument.ToJson());
     }
 
-    public async Task<List<Order>> GetPendingOrders()
+    public virtual async Task<List<Order>> GetPendingOrders()
     {
         var queryRequest = new ScanRequest
         {
@@ -77,7 +77,7 @@ public class ProductionRepository(IAmazonDynamoDB dynamoDb)
         return orders;
     }
 
-    public async Task<bool> ChangeOrderToStatus(string in_store_order_id, string status)
+    public virtual async Task<bool> ChangeOrderToStatus(string in_store_order_id, string status)
     {
         var updateItemRequest = new UpdateItemRequest
         {

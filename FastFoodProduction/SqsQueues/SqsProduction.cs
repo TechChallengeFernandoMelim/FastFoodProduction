@@ -8,7 +8,7 @@ public class SqsProduction(AmazonSQSClient sqsClient)
 {
     private string sqsProductionQueue = Environment.GetEnvironmentVariable("AWS_SQS_PRODUCTION");
 
-    public async Task<Order> GetNextOrder()
+    public virtual async Task<Order> GetNextOrder()
     {
         var receiveMessageRequest = new ReceiveMessageRequest
         {
@@ -34,7 +34,7 @@ public class SqsProduction(AmazonSQSClient sqsClient)
         };
     }
 
-    public async Task DeleteMessage(string receiptHandlerMessage)
+    public virtual async Task DeleteMessage(string receiptHandlerMessage)
     {
         var deleteMessageRequest = new DeleteMessageRequest
         {
