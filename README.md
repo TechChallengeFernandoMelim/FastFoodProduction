@@ -20,7 +20,3 @@ A execução do projeto pode ser feita buildando o dockerfile na raiz do repositór
 
 ## Testes
 
-
-### Testes unitários
-
-### BDD
