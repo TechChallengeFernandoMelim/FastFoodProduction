@@ -27,3 +27,12 @@ Conforme foi solicitado, estou postando aqui as evidências de cobertura dos test
 ![Coverage2](./images/coverage2.png)
 
 Através das imagens é possível observar que a cobertura por testes unitários ficou superior a 80%, conforme solicitado.
+
+## Endpoints
+
+
+Os endpoints presentes nesse projeto são:
+
+- GET /GetNextOrder: recebe o próximo pedido de uma fila no SQS que é FIFO.
+- GET /GetAllPendingOrders: lista todos os pedidos pendentes.
+- PATCH /ChangeStatus/{in_store_order_id}/{newStatus}: muda o status de um pedido para "Preparing", "Ready" ou "Finished".
