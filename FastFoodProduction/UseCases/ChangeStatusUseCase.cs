@@ -21,8 +21,12 @@ public class ChangeStatusUseCase()
                     throw new Exception("Ocorreu algum erro ao atualizar o status do pedido.");
             }
             else
-                return Results.BadRequest("Status inválido para o pedido selecionado.");
-
+            {
+                if (order.OrderStatus == "Canceled")
+                    return Results.BadRequest($"O pedido {in_store_order_id} já foi cancelado.");
+                else
+                    return Results.BadRequest("Status inválido para o pedido selecionado.");
+            }
 
             return Results.Ok();
         }

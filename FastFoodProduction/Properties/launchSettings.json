@@ -4,7 +4,14 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "AWS_ACCESS_KEY_DYNAMO": "",
+        "AWS_SECRET_KEY_DYNAMO": "",
+        "AWS_TABLE_NAME_DYNAMO": "FastFoodProduction",
+        "AWS_SQS_LOG": "https://sqs.us-east-1.amazonaws.com/817549174499/FastFoodLogQueue.fifo",
+        "AWS_SQS_GROUP_ID_LOG": "FastFoodLogQueue.fifo",
+        "AWS_SQS_PRODUCTION": "https://sqs.us-east-1.amazonaws.com/817549174499/FastFoodProductionQueue.fifo",
+        "PAYMENT_SERVICE_URL": "https://localhost:32768"
       },
       "applicationUrl": "https://localhost:55142;http://localhost:55143"
     },
@@ -23,10 +30,11 @@
         "ASPNETCORE_HTTP_PORTS": "8080",
         "AWS_ACCESS_KEY_DYNAMO": "",
         "AWS_SECRET_KEY_DYNAMO": "",
-        "AWS_TABLE_NAME_DYNAMO": "ProductionTable",
-        "AWS_SQS_LOG": "https://sqs.us-east-1.amazonaws.com/817549174499/LogQueue.fifo",
-        "AWS_SQS_GROUP_ID_LOG": "LogQueue.fifo",
-        "AWS_SQS_PRODUCTION": "https://sqs.us-east-1.amazonaws.com/817549174499/ProductionQueue.fifo"
+        "AWS_TABLE_NAME_DYNAMO": "FastFoodProduction",
+        "AWS_SQS_LOG": "https://sqs.us-east-1.amazonaws.com/817549174499/FastFoodLogQueue.fifo",
+        "AWS_SQS_GROUP_ID_LOG": "FastFoodLogQueue.fifo",
+        "AWS_SQS_PRODUCTION": "https://sqs.us-east-1.amazonaws.com/817549174499/FastFoodProductionQueue.fifo",
+        "PAYMENT_SERVICE_URL": "https://localhost:32768"
       },
       "publishAllPorts": true,
       "useSSL": true

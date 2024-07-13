@@ -25,5 +25,20 @@ public static class ProductionEndpoints
             var changeStatusUseCase = new ChangeStatusUseCase();
             return await changeStatusUseCase.ChangeStatus(in_store_order_id, logger, productionRepository, newStatus);
         });
+
+        endpoints.MapPatch("/CancelOrderProduction/{in_store_order_id}", async (string in_store_order_id, SqsLogger logger, ProductionRepository productionRepository, HttpContext httpContext) =>
+        {
+            var accessToken = httpContext.GetAuthorizationToken();
+            var changeStatusUseCase = new CancelOrderUseCase();
+            return await changeStatusUseCase.CancelOrder(in_store_order_id, logger, productionRepository, accessToken);
+        });
+    }
+
+    public static string GetAuthorizationToken(this HttpContext context)
+    {
+        if (context.Request.Headers.TryGetValue("Authorization", out var token))
+            return token.ToString().Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase).Trim();
+
+        return null;
     }
 }

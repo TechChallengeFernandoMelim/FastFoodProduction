@@ -13,6 +13,7 @@ public class GetNextOrderUseCase()
 
             if (order == null)
                 return Results.NoContent();
+
             await productionRepository.CreateOrder(order);
 
             await sqsProduction.DeleteMessage(order.ReceiptHandlerMessage);

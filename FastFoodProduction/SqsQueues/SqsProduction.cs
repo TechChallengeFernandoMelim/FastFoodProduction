@@ -15,7 +15,7 @@ public class SqsProduction(AmazonSQSClient sqsClient)
             QueueUrl = sqsProductionQueue,
             MaxNumberOfMessages = 1,
             WaitTimeSeconds = 10,
-            MessageAttributeNames = new List<string> { "InStoreOrderId", "ItensJson" }
+            MessageAttributeNames = new List<string> { "InStoreOrderId", "ItensJson", "PaymentStatus" }
         };
 
         var receiveMessageResponse = await sqsClient.ReceiveMessageAsync(receiveMessageRequest);
@@ -29,7 +29,7 @@ public class SqsProduction(AmazonSQSClient sqsClient)
         {
             InStoreOrderId = message.MessageAttributes["InStoreOrderId"].StringValue,
             ItensJson = message.MessageAttributes["ItensJson"].StringValue,
-            OrderStatus = "Paid",
+            OrderStatus = message.MessageAttributes["PaymentStatus"].StringValue,
             ReceiptHandlerMessage = message.ReceiptHandle
         };
     }
