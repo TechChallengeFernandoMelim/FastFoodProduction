@@ -22,12 +22,6 @@ A execução do projeto pode ser feita buildando o dockerfile na raiz do repositór
 
 Conforme foi solicitado, estou postando aqui as evidências de cobertura dos testes. A cobertura foi calculada via integração com o [SonarCloud](https://sonarcloud.io/) e pode ser vista nesse [link](https://sonarcloud.io/organizations/techchallengefernandomelim/projects). A integração com todos os repositórios poderá ser vista nesse link.
 
-![Coverage1](./images/coverage1.png)
-
-![Coverage2](./images/coverage2.png)
-
-Através das imagens é possível observar que a cobertura por testes unitários ficou superior a 80%, conforme solicitado.
-
 ## Endpoints
 
 
