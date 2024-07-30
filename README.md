@@ -16,7 +16,27 @@ Todas as variáveis de ambiente do projeto visam fazer integração com algum servi
 
 ## Execução do projeto
 
-A execução do projeto pode ser feita buildando o dockerfile na raiz do repositório e depois executando a imagem gerada em um container. O serviço foi testado sendo executado direto pelo visual Studio e pela AWS.
+Para executar com docker, basta executar o seguinte comando na pasta raiz do projeto para gerar a imagem:
+
+``` docker build -t fast_food_production -f .\FastFoodProduction\Dockerfile . ```
+
+Para subir o container, basta executar o seguinte comando:
+
+``` 
+docker run -e AWS_ACCESS_KEY_DYNAMO=""
+-e AWS_SECRET_KEY_DYNAMO=""
+-e AWS_TABLE_NAME_DYNAMO=""
+-e AWS_SQS_LOG=""
+-e AWS_SQS_GROUP_ID_LOG=""
+-e AWS_SQS_PRODUCTION=""
+-p 8081:8081 -p 8080:8080 fast_food_production
+```
+
+Observação: as variáveis de ambiente não estão com valores para não expor meu ambiente AWS. Para utilizar o serviço corretamente, é necessário definir um valor para as variáveis.
+
+Além disso, como o projeto foi desenvolvido em .NET, também é possível executá-lo pelo Visual Studio ou com o CLI do .NET.
+
+
 
 ## Testes
 
